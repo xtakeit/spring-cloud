@@ -1,0 +1,11 @@
+server:
+  port: 8004
+spring:
+  application:
+    name: cloud-payment-service
+  cloud:
+    zookeeper:
+      #连接主节点，才行不会nullPointException，不过也会有error
+      #不知道是不是zookeeper服务器版本3.6.1,连接jar3.5.3-beta
+      #集群以 逗号(,) 分隔
+      connect-string: 101.132.142.58:2183,101.132.142.58:2182,101.132.142.58:2181
