@@ -1,0 +1,15 @@
+server:
+  port: 80
+spring:
+  application:
+    name: cloud-order-service
+  cloud:
+    consul:
+      host: 101.132.142.58
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+        prefer-ip-address: true
+        healthCheckInterval: 15s
+# ps：发送本地ip地址:192.168.1.199，consul是连接不上的。
+#     不知道怎么配置才能让云服务器连接本地局域网。
