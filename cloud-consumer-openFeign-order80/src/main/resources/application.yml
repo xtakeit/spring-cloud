@@ -1,0 +1,38 @@
+server:
+  port: 80
+spring:
+  application:
+    name: cloud-order-service
+  datasource:
+    username: root
+    password: 1240023706
+    url: jdbc:mysql://localhost:3306/cloud_db?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      test-on-borrow: true
+      stat-view-servlet:
+        allow: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      # 注册到集群内,填写两个地址，防止某个服务down了连接不上
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+#openFeign超时控制
+ribbon:
+  #获取资源最大等待时间
+  ReadTimeout: 5000
+  #获取连接最大等待时间
+  ConnectTimeout: 5000
+#接口日志级别
+logging:
+  level:
+    #feign日志以什么级别监控哪个端口
+    cn.edu.dgut.springcloud.service.PaymentFeignService: debug
