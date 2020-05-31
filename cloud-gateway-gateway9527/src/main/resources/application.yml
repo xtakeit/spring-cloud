@@ -1,0 +1,29 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: cloud-gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #利用微服务名进行路由
+      routes:
+        - id: payment_route
+          uri: lb://cloud-payment-hystrix-service
+          predicates:
+            - Path=/payment/hystrix/ok/**
+#            - Header=X-Request-Id, \d+
+#            - Query=green,123
+        - id: payment_route2
+          uri: lb://cloud-payment-hystrix-service
+          predicates:
+            - Path=/payment/hystrix/timeout/**
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+  instance:
+    hostname: cloud-gateway-service
